@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIPARE → Excel</title>
+<meta name="description" content="Convierte líneas de pago SIPARE (IMSS) en PDF a un Excel editable. Todo el proceso ocurre en tu navegador.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenido">
+    <div class="marca">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="logo">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M14 2v6h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M9 13l6 6M15 13l-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>SIPARE → Excel</h1>
+        <p>Líneas de pago del IMSS en hojas de cálculo editables</p>
+      </div>
+    </div>
+    <span class="privado" title="Los archivos nunca salen de tu computadora">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.1 8 11 4.6-1.9 8-6 8-11V5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      100 % en tu navegador
+    </span>
+  </div>
+</header>
+
+<main class="contenido">
+
+  <section class="tarjeta">
+    <div id="dropzone" class="dropzone" tabindex="0" role="button"
+         aria-label="Seleccionar o arrastrar archivos PDF o ZIP">
+      <svg viewBox="0 0 24 24" class="icono-subida" aria-hidden="true">
+        <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <p class="principal">Arrastra aquí tus archivos o <span class="enlace">búscalos en tu equipo</span></p>
+      <p class="secundario">Acepta <strong>ZIP</strong> con varias líneas de pago o <strong>PDF</strong> sueltos</p>
+      <input type="file" id="file-input" accept=".pdf,.zip,application/pdf,application/zip" multiple hidden>
+    </div>
+  </section>
+
+  <section id="vacio" class="nota">
+    <h2>Cómo funciona</h2>
+    <ol>
+      <li>Sube un ZIP con las líneas de pago o los PDF por separado.</li>
+      <li>Se lee cada formato SPR-05: datos del patrón, período, conceptos y línea de captura.</li>
+      <li>Descargas un <code>.xlsx</code> con una hoja por línea de pago, con fórmulas vivas y celdas editables.</li>
+    </ol>
+    <p class="chico">Nada se envía a ningún servidor ni se guarda: la conversión ocurre completa dentro de tu navegador.</p>
+  </section>
+
+  <section id="panel" class="tarjeta" hidden>
+    <div class="panel-encabezado">
+      <h2>Archivos <span id="contador" class="contador"></span></h2>
+      <label class="opcion">
+        <input type="checkbox" id="opt-resumen" checked>
+        Incluir hoja de concentrado
+      </label>
+    </div>
+
+    <ul id="lista" class="lista"></ul>
+
+    <div id="progreso" class="progreso" hidden>
+      <div class="pista"><div id="barra" class="barra"></div></div>
+      <p id="estado" class="chico"></p>
+    </div>
+
+    <div id="resumen" class="resumen" hidden></div>
+
+    <div class="acciones">
+      <button id="btn-convertir" class="primario">Convertir a Excel</button>
+      <button id="btn-limpiar" class="secundario">Limpiar</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie contenido">
+  <p>Formato IMSS SPR-05 · Procesamiento local con pdf.js y ExcelJS</p>
+</footer>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/exceljs.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
